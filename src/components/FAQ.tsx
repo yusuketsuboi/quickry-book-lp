@@ -33,7 +33,7 @@ export default function FAQ() {
             return (
               <div
                 key={i}
-                className={`animate-on-scroll overflow-hidden rounded-xl border transition-all duration-300 ${
+                className={`overflow-hidden rounded-xl border transition-all duration-300 ${
                   isOpen
                     ? "border-primary shadow-sm"
                     : "border-border"
