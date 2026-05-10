@@ -27,7 +27,7 @@ export default function Trust() {
               key={i}
               className={`animate-on-scroll stagger-${i + 1} flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm`}
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F0F8FF]">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50">
                 <Image
                   src="/icon_check_blue.svg"
                   alt=""

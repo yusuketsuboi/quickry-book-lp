@@ -3,6 +3,7 @@ import PainPoints from "@/components/PainPoints";
 import Solution from "@/components/Solution";
 import HowItWorks from "@/components/HowItWorks";
 import Benefits from "@/components/Benefits";
+import Simulation from "@/components/Simulation";
 import Comparison from "@/components/Comparison";
 import Trust from "@/components/Trust";
 import Pricing from "@/components/Pricing";
@@ -42,6 +43,7 @@ export default function Home() {
         <Solution />
         <HowItWorks />
         <Benefits />
+        <Simulation />
         <Comparison />
         <Trust />
         <Pricing />

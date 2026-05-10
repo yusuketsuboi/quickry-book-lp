@@ -27,11 +27,11 @@ export const metadata: Metadata = {
   },
   title: "Quickry Book - 予約枠で、稼ぐ。",
   description:
-    '予約の"トレード"が発生するたび、あなたの店に収益が入る。無料の予約システム、Quickry Book。初期パートナー店舗を募集中。',
+    "キャンセルされる予約枠が、別のお客様に渡って売上に。日本初の予約枠マーケットプレイス「Quickry Book」。初期パートナー店舗を募集中。",
   openGraph: {
     title: "Quickry Book - 予約枠で、稼ぐ。",
     description:
-      "キャンセル = 損失 → キャンセル = 収益機会 に変わる。予約枠トレードで新しい収益を。",
+      "キャンセル枠が別のお客様に渡って売上に。日本初の予約枠マーケットプレイス。",
     images: ["/ogp.webp"],
     type: "website",
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Quickry Book - 予約枠で、稼ぐ。",
     description:
-      "キャンセル = 損失 → キャンセル = 収益機会 に変わる。予約枠トレードで新しい収益を。",
+      "キャンセル枠が別のお客様に渡って売上に。日本初の予約枠マーケットプレイス。",
     images: ["/ogp.webp"],
   },
 };
