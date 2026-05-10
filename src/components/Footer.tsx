@@ -8,7 +8,7 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0D0D1A]">
+    <footer className="bg-bg-darker">
       <div className="mx-auto max-w-[1080px] px-5 pb-8 pt-12 lg:px-0">
         <div className="lg:flex lg:items-start lg:justify-between">
           {/* Left: Logo + Company info */}
