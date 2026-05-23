@@ -1,37 +1,44 @@
-import { CalendarCheck, Upload, HandCoins } from "lucide-react";
+import { CalendarCheck, Send, Repeat } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 const steps = [
   {
     number: 1,
     Icon: CalendarCheck,
-    title: "お客様が予約を取る",
-    description: "通常通りの予約フロー。普段の予約管理と何も変わりません。",
+    title: "通常の予約管理として使う",
+    description:
+      "まずは、いつもの予約管理ツールとして。月額0円から始められ、来店払いの通常予約は手数料0円です。",
+    forStore: "今までのやり方を変えず、コストの持ち出しなしで導入できます。",
   },
   {
     number: 2,
-    Icon: Upload,
-    title: "行けなくなったら、予約枠を出品",
-    description: "お客様がアプリから1タップで出品。あなたに連絡する必要はありません。",
+    Icon: Send,
+    title: "行きたいお客様がオファーを送る",
+    label: "オファー型・メイン",
+    description:
+      "「この日に行きたい」というお客様が、アプリで枠にオファーを送ります。満席や希望日でも、行きたい気持ちが届く仕組みです。",
+    forStore: "広告費をかけずに、来店意欲の高い新しいお客様との出会いが生まれます。",
   },
   {
     number: 3,
-    Icon: HandCoins,
-    title: "別のお客様がトレードで購入",
-    description: "別のお客様が予約枠を引き継ぎ、あなたのお店に来店。売上ゼロになるはずだった枠から収益が発生します。",
+    Icon: Repeat,
+    title: "行けない枠は別のお客様に引き継ぎ",
+    label: "補助",
+    description:
+      "予定が合わなくなった枠は、別のお客様へ引き継がれます。店舗側の操作は不要で、自動で再配分されます。",
+    forStore: "空いてしまうはずだった枠が、新しい来店につながります。",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="bg-bg-gray">
-      <div className="mx-auto max-w-[1080px] px-5 py-16 lg:px-0 lg:py-30">
+    <section className="bg-bg-white">
+      <div className="mx-auto max-w-[1080px] px-5 py-20 lg:px-0 lg:py-32">
         <div className="animate-on-scroll">
-          <SectionHeading subLabel="HOW IT WORKS" title="かんたん3ステップ" />
+          <SectionHeading subLabel="HOW IT WORKS" title="3ステップで動く仕組み" />
         </div>
 
-        {/* Timeline layout */}
-        <div className="mx-auto mt-14 max-w-[720px]">
+        <div className="mx-auto mt-14 max-w-[760px]">
           <div className="relative">
             {/* Vertical line */}
             <div className="absolute left-[23px] top-4 bottom-4 w-[2px] bg-primary/15 lg:left-[31px]" />
@@ -55,28 +62,35 @@ export default function HowItWorks() {
                     </div>
 
                     {/* Content card */}
-                    <div className="flex-1 rounded-2xl bg-white p-5 shadow-sm lg:p-6">
-                      <p className="font-[family-name:var(--font-accent)] text-[11px] font-bold tracking-wider text-primary lg:text-xs">
-                        STEP {step.number}
-                      </p>
-                      <h3 className="mt-1 text-lg font-bold text-text-primary lg:text-xl">
+                    <div className="flex-1 rounded-2xl bg-bg-gray p-5 lg:p-7">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="font-[family-name:var(--font-accent)] text-[11px] font-bold tracking-wider text-primary lg:text-xs">
+                          STEP {step.number}
+                        </p>
+                        {step.label && (
+                          <span className="inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-[10px] font-semibold text-accent">
+                            {step.label}
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="mt-1.5 text-lg font-bold text-text-primary lg:text-xl">
                         {step.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-[1.8] text-text-secondary">
+                      <p className="mt-2 text-sm leading-[1.9] text-text-secondary lg:text-base">
                         {step.description}
                       </p>
+                      <div className="mt-4 rounded-xl bg-white px-4 py-3">
+                        <p className="text-xs leading-[1.7] text-text-secondary lg:text-sm">
+                          <span className="font-bold text-primary">店舗にとって:</span>{" "}
+                          {step.forStore}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-        </div>
-
-        <div className="animate-on-scroll mt-10 text-center">
-          <span className="inline-block rounded-full bg-primary-light px-5 py-3 text-sm text-text-muted">
-            お店側の操作は不要。トレードが成立すれば店舗の売上に。
-          </span>
         </div>
       </div>
     </section>

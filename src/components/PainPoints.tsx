@@ -1,71 +1,66 @@
-import Image from "next/image";
-import SectionHeading from "./SectionHeading";
-
-const painItems = [
-  "当日キャンセル・ノーショーで毎月 数万円の損失が出ている",
-  "キャンセル料を請求したいが、関係悪化が怖くて言えない",
-  "キャンセル待ちリストを作っても、反応率が低い",
-  "ホットペッパーの掲載費が高すぎるが、やめると集客が減る",
-];
-
-const stats = [
-  { value: "2,000億円", label: "ノーショー被害額（飲食・美容業界）", prefix: "年間" },
-  { value: "1.6兆円", label: "ドタキャン含む被害総額", prefix: "年間" },
+const honneItems = [
+  {
+    title: "ホットペッパーから、抜け出せない",
+    body: "掲載費の負担は決して小さくない。それでも、解約したら集客が止まるかもしれない――その不安があるから、踏み切れない。続けるのも苦しいのに、やめる決断はもっと重い。多くのオーナーが、この板挟みの中にいます。",
+  },
+  {
+    title: "キャンセル料を、お客様に言えない",
+    body: "ルールとして決めてはいる。けれど、いざその場になると言い出せない。長く通ってくださるお客様との関係を、お金のことで気まずくしたくない。結果として、キャンセル料はほとんど回収できていない。そう打ち明けてくださるオーナーは少なくありません。",
+  },
+  {
+    title: "「予約困難店」に見せたいのに、空席が出る",
+    body: "人気のあるお店に見せたい。予約の取りにくい一軒でありたい。その思いとは裏腹に、当日のキャンセルで席はぽつりと空く。理想と現実の差が、いちばん見えにくいところで広がっていきます。",
+  },
 ];
 
 export default function PainPoints() {
   return (
-    <section className="relative overflow-hidden">
-      {/* Background image */}
-      <div className="pointer-events-none absolute inset-0">
-        <Image
-          src="/pain_bg.webp"
-          alt=""
-          fill
-          className="object-cover opacity-5"
-          aria-hidden="true"
-        />
-      </div>
-
-      <div className="relative mx-auto max-w-[1080px] px-5 py-16 lg:px-0 lg:py-30">
-        <div className="animate-on-scroll">
-          <SectionHeading subLabel="PAIN POINT" title="こんなお悩みありませんか？" />
+    <section className="bg-bg-gray">
+      <div className="mx-auto max-w-[860px] px-5 py-20 lg:px-0 lg:py-32">
+        <div className="animate-on-scroll text-center">
+          <p className="font-[family-name:var(--font-accent)] text-xs font-semibold uppercase tracking-[2px] text-primary">
+            THREE HONEST VOICES
+          </p>
+          <h2 className="mt-3 text-2xl font-bold leading-[1.4] text-text-primary lg:text-[34px]">
+            予約制サービスのオーナー、
+            <br className="lg:hidden" />
+            こんな悩みはありませんか？
+          </h2>
         </div>
 
-        {/* Pain checklist */}
-        <div className="mt-12 flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-5">
-          {painItems.map((item, i) => (
+        {/* Lead */}
+        <p className="animate-on-scroll mx-auto mt-8 max-w-[680px] text-center text-sm leading-[2] text-text-secondary lg:text-base">
+          予約制のお店を続けていると、口には出しにくいけれど、ずっと心の片隅に残っている。そんな悩みがあります。店舗オーナーの皆様からよくいただく声を、三つに整理しました。
+        </p>
+
+        {/* Three honne */}
+        <div className="mt-14 space-y-6 lg:space-y-8">
+          {honneItems.map((item, i) => (
             <div
               key={i}
-              className={`animate-slide-in stagger-${i + 1} rounded-2xl bg-white p-6 shadow-sm`}
+              className={`animate-on-scroll stagger-${i + 1} rounded-3xl bg-white p-7 shadow-sm lg:p-10`}
             >
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-red-50 text-sm font-bold text-error">
-                  !
+              <div className="flex items-baseline gap-4">
+                <span className="font-[family-name:var(--font-accent)] text-2xl font-extrabold text-primary/30 lg:text-3xl">
+                  0{i + 1}
                 </span>
-                <span className="text-base leading-[1.8] text-text-primary lg:text-lg">
-                  {item}
-                </span>
+                <div>
+                  <h3 className="text-lg font-bold leading-[1.5] text-text-primary lg:text-xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-[2] text-text-secondary lg:text-base">
+                    {item.body}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Stats */}
-        <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:gap-4">
-          {stats.map((stat) => (
-            <div
-              key={stat.value}
-              className="animate-on-scroll flex-1 rounded-2xl bg-white p-6 text-center shadow-sm"
-            >
-              <p className="font-[family-name:var(--font-accent)] text-4xl font-extrabold text-error">
-                {stat.prefix}
-                {stat.value}
-              </p>
-              <p className="mt-1 text-xs text-text-muted">{stat.label}</p>
-            </div>
-          ))}
-        </div>
+        {/* Transition line */}
+        <p className="animate-on-scroll mt-14 text-center text-base leading-[1.9] text-text-primary lg:text-lg">
+          ここから、ある美容室オーナー・田中さんの一日を見ていきます。
+        </p>
       </div>
     </section>
   );

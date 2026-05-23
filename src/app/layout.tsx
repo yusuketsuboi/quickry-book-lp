@@ -25,21 +25,21 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon2.ico",
   },
-  title: "Quickry Book - 予約枠で、稼ぐ。",
+  title: "Quickry Book - キャンセル枠が、明日の売上になる。",
   description:
-    "キャンセルされる予約枠が、別のお客様に渡って売上に。日本初の予約枠マーケットプレイス「Quickry Book」。初期パートナー店舗を募集中。",
+    "月額0円から始める、新しい予約管理。キャンセルで空いた枠を、本当に必要な人に届けるQuickryBook。予約枠のマーケットプレイス。",
   openGraph: {
-    title: "Quickry Book - 予約枠で、稼ぐ。",
+    title: "Quickry Book - キャンセル枠が、明日の売上になる。",
     description:
-      "キャンセル枠が別のお客様に渡って売上に。日本初の予約枠マーケットプレイス。",
+      "月額0円から始める、新しい予約管理。空いた枠を、本当に必要な人に届ける予約枠のマーケットプレイス。",
     images: ["/ogp.webp"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Quickry Book - 予約枠で、稼ぐ。",
+    title: "Quickry Book - キャンセル枠が、明日の売上になる。",
     description:
-      "キャンセル枠が別のお客様に渡って売上に。日本初の予約枠マーケットプレイス。",
+      "月額0円から始める、新しい予約管理。空いた枠を、本当に必要な人に届ける予約枠のマーケットプレイス。",
     images: ["/ogp.webp"],
   },
 };

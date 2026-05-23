@@ -43,7 +43,7 @@ export default function FloatingCTA() {
           onClick={scrollToForm}
           className="w-full max-w-[400px] cursor-pointer rounded-full bg-accent px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-dark hover:shadow-lg active:translate-y-0 lg:max-w-[320px]"
         >
-          初期パートナーに申し込む（無料）
+          無料で話を聞いてみる
         </button>
       </div>
     </div>

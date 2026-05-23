@@ -1,120 +1,102 @@
 import SectionHeading from "./SectionHeading";
 
-const competitors = ["ホットペッパー", "一般的な予約管理ツール"];
+/**
+ * LP限定 類型比較セクション（S10とS11の間）
+ * 原稿 v4.2 LP版構成に準拠。競合社名・ロゴ・スクショ禁止。全て「〜の傾向があります」化。
+ */
+const types = [
+  {
+    label: "① 集客プラットフォーム型",
+    body: "集客力に強みがある一方、掲載費が継続的に発生する傾向があります。新規のお客様との接点づくりを外部に任せたいお店に向いている傾向があります。",
+    range: "月額レンジ: 数万円〜（プラン・地域・店舗規模により異なる傾向があります）",
+    feature: "特徴: 新規集客の窓口になりやすい傾向。",
+    highlight: false,
+  },
+  {
+    label: "② 予約システム単機能型",
+    body: "予約管理に特化し、比較的低コストで導入できる傾向があります。集客やキャンセル枠の活用は、別の手段で補う必要がある傾向があります。",
+    range: "月額レンジ: 無料〜数千円程度（提供形態により異なる傾向があります）",
+    feature: "特徴: 予約の受付・管理がシンプルにできる傾向。",
+    highlight: false,
+  },
+  {
+    label: "③ Quickry Book",
+    body: "通常予約はほぼ無料で使え、キャンセル枠を新しいお客様に届ける仕組みを備えています。集客と予約管理を、持ち出しを抑えながら両立したいお店に向いている傾向があります。",
+    range: "月額レンジ: 0円〜（Freeプランの場合）",
+    feature:
+      "特徴: 通常予約はほぼ無料 ／ 予約枠トレード（特許出願中） ／ 店舗の持ち出しゼロ。",
+    highlight: true,
+  },
+];
 
-const rows = [
-  {
-    label: "キャンセル対策",
-    values: ["リマインド通知のみ", "キャンセル料請求のみ", "予約枠トレードで枠を埋める"],
-  },
-  {
-    label: "費用",
-    values: ["月10〜50万円の掲載費", "月0〜2万円の月額", "Freeプランなら月額0円"],
-  },
-  {
-    label: "新規顧客獲得",
-    values: ["掲載による集客のみ", "原則なし", "トレード経由で自然流入"],
-  },
-  {
-    label: "キャンセル時の店舗収入",
-    values: ["ゼロ", "キャンセル料（回収困難）", "トレード成立なら収益が発生"],
-  },
+const differentiators = [
+  "通常予約はほぼ無料",
+  "予約枠トレード（特許出願中・特願2024-139465）",
+  "店舗の持ち出しゼロ",
 ];
 
 export default function Comparison() {
   return (
     <section className="bg-bg-gray">
-      <div className="mx-auto max-w-[1080px] px-5 py-16 lg:px-0 lg:py-30">
+      <div className="mx-auto max-w-[1080px] px-5 py-20 lg:px-0 lg:py-32">
         <div className="animate-on-scroll">
           <SectionHeading
             subLabel="COMPARISON"
-            title="他サービスにはない、Quickry Bookだけの仕組み"
+            title="3つの選択肢から、自分に合うものを選ぶ"
           />
         </div>
-        <p className="animate-on-scroll mx-auto mt-4 max-w-[640px] text-center text-sm leading-[1.8] text-text-secondary">
-          予約を「管理する」だけの既存サービスとは、構造から違います。
+
+        <p className="animate-on-scroll mx-auto mt-6 max-w-[680px] text-center text-sm leading-[1.9] text-text-secondary lg:text-base">
+          予約まわりの仕組みには、大きく分けて三つの考え方があります。どれが良い・悪いではなく、お店の課題に合うものを選ぶための整理です。
         </p>
 
-        {/* PC: Table */}
-        <div className="animate-on-scroll mt-12 hidden lg:block">
-          <table
-            className="w-full overflow-hidden rounded-2xl shadow-md"
-            style={{ borderCollapse: "separate", borderSpacing: 0 }}
-          >
-            <thead>
-              <tr className="bg-bg-dark text-sm font-semibold text-white">
-                <th className="p-4 text-left" />
-                {competitors.map((c) => (
-                  <th key={c} className="p-4 text-left">
-                    {c}
-                  </th>
-                ))}
-                <th className="bg-primary p-4 text-left font-bold text-white">
-                  Quickry Book
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {rows.map((row, ri) => (
-                <tr
-                  key={ri}
-                  className={
-                    ri < rows.length - 1 ? "border-b border-border" : ""
-                  }
-                >
-                  <td className="p-4 align-top text-sm font-semibold text-text-primary">
-                    {row.label}
-                  </td>
-                  {row.values.map((val, vi) => (
-                    <td
-                      key={vi}
-                      className={`p-4 align-top text-sm ${
-                        vi === 2
-                          ? "bg-primary-50 font-semibold text-primary"
-                          : "text-text-secondary"
-                      }`}
-                    >
-                      {val}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile: Stacked cards */}
-        <div className="animate-on-scroll mt-12 flex flex-col gap-4 lg:hidden">
-          {rows.map((row, ri) => (
+        <div className="mt-12 grid gap-5 lg:grid-cols-3 lg:gap-6">
+          {types.map((type, i) => (
             <div
-              key={ri}
-              className="overflow-hidden rounded-2xl bg-white shadow-sm"
+              key={i}
+              className={`animate-on-scroll stagger-${i + 1} rounded-3xl p-7 lg:p-8 ${
+                type.highlight
+                  ? "bg-white shadow-md ring-2 ring-primary"
+                  : "border border-border bg-white shadow-sm"
+              }`}
             >
-              <div className="bg-bg-dark px-5 py-3">
-                <p className="text-sm font-bold text-white">{row.label}</p>
-              </div>
-              <div className="divide-y divide-border">
-                {competitors.map((c, ci) => (
-                  <div key={c} className="flex items-start gap-3 px-5 py-3">
-                    <span className="w-[140px] shrink-0 text-xs text-text-muted">
-                      {c}
-                    </span>
-                    <span className="text-sm text-text-secondary">
-                      {row.values[ci]}
-                    </span>
-                  </div>
-                ))}
-                <div className="flex items-start gap-3 bg-primary-50 px-5 py-3">
-                  <span className="w-[140px] shrink-0 text-xs font-bold text-primary">
-                    Quickry Book
-                  </span>
-                  <span className="text-sm font-semibold text-primary">
-                    {row.values[2]}
-                  </span>
-                </div>
+              <h3
+                className={`text-base font-bold leading-[1.5] lg:text-lg ${
+                  type.highlight ? "text-primary" : "text-text-primary"
+                }`}
+              >
+                {type.label}
+              </h3>
+              <p className="mt-4 text-sm leading-[1.9] text-text-secondary">
+                {type.body}
+              </p>
+              <div className="mt-5 space-y-2 border-t border-border pt-4">
+                <p className="text-xs leading-[1.7] text-text-muted">
+                  {type.range}
+                </p>
+                <p className="text-xs leading-[1.7] text-text-secondary">
+                  {type.feature}
+                </p>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* 差別化3点 */}
+        <div className="animate-on-scroll mx-auto mt-12 max-w-[760px] rounded-3xl bg-primary p-8 text-center lg:p-10">
+          <p className="text-base font-bold text-white lg:text-lg">
+            Quickry Book が大切にしている3つのこと
+          </p>
+          <div className="mt-6 flex flex-col items-center gap-3 lg:flex-row lg:justify-center lg:gap-4">
+            {differentiators.map((d) => (
+              <span
+                key={d}
+                className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm"
+              >
+                {d}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

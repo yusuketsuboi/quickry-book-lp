@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 const links = [
-  { label: "利用規約", href: "/terms" },
-  { label: "プライバシーポリシー", href: "/privacy" },
   { label: "特定商取引法に基づく表記", href: "/legal" },
+  { label: "プライバシーポリシー", href: "/privacy" },
+  { label: "利用規約", href: "/terms" },
 ];
 
 export default function Footer() {
@@ -22,7 +22,7 @@ export default function Footer() {
             />
             <div className="mt-4 space-y-1 text-xs leading-relaxed text-white/40">
               <p>Quickry株式会社</p>
-              <p>info@quickry.jp</p>
+              <p>contact@quickry.jp</p>
             </div>
           </div>
 
