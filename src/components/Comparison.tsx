@@ -1,103 +1,77 @@
-import SectionHeading from "./SectionHeading";
+import SecHead from "@/components/SecHead";
 
-/**
- * LP限定 類型比較セクション（S10とS11の間）
- * 原稿 v4.2 LP版構成に準拠。競合社名・ロゴ・スクショ禁止。全て「〜の傾向があります」化。
- */
-const types = [
-  {
-    label: "① 集客プラットフォーム型",
-    body: "集客力に強みがある一方、掲載費が継続的に発生する傾向があります。新規のお客様との接点づくりを外部に任せたいお店に向いている傾向があります。",
-    range: "月額レンジ: 数万円〜（プラン・地域・店舗規模により異なる傾向があります）",
-    feature: "特徴: 新規集客の窓口になりやすい傾向。",
-    highlight: false,
-  },
-  {
-    label: "② 予約システム単機能型",
-    body: "予約管理に特化し、比較的低コストで導入できる傾向があります。集客やキャンセル枠の活用は、別の手段で補う必要がある傾向があります。",
-    range: "月額レンジ: 無料〜数千円程度（提供形態により異なる傾向があります）",
-    feature: "特徴: 予約の受付・管理がシンプルにできる傾向。",
-    highlight: false,
-  },
-  {
-    label: "③ Quickry Book",
-    body: "通常予約はほぼ無料で使え、キャンセル枠を新しいお客様に届ける仕組みを備えています。集客と予約管理を、持ち出しを抑えながら両立したいお店に向いている傾向があります。",
-    range: "月額レンジ: 0円〜（Freeプランの場合）",
-    feature:
-      "特徴: 通常予約はほぼ無料 ／ 予約枠トレード（特許出願中） ／ 店舗の持ち出しゼロ。",
-    highlight: true,
-  },
-];
-
-const differentiators = [
-  "通常予約はほぼ無料",
-  "予約枠トレード（特許出願中・特願2024-139465）",
-  "店舗の持ち出しゼロ",
-];
-
+// 案B S9 Comparison（3類型テーブル）。社名・ロゴは出さない。「〜の傾向があります」表現を維持。
 export default function Comparison() {
   return (
-    <section className="bg-bg-gray">
-      <div className="mx-auto max-w-[1080px] px-5 py-20 lg:px-0 lg:py-32">
-        <div className="animate-on-scroll">
-          <SectionHeading
-            subLabel="COMPARISON"
-            title="3つの選択肢から、自分に合うものを選ぶ"
-          />
-        </div>
-
-        <p className="animate-on-scroll mx-auto mt-6 max-w-[680px] text-center text-sm leading-[1.9] text-text-secondary lg:text-base">
-          予約まわりの仕組みには、大きく分けて三つの考え方があります。どれが良い・悪いではなく、お店の課題に合うものを選ぶための整理です。
+    <section className="sec cmp" id="comparison">
+      <div className="wrap">
+        <SecHead no="09" sup="Comparison">
+          予約まわりのサービスを、
+          <br />
+          3つのタイプで。
+        </SecHead>
+        <p className="sec-lead rv">
+          予約に関わるサービスは、大きく3つのタイプに分けられます。それぞれに得意なことがあり、Quickry&nbsp;Bookは新しい一つの選択肢です。
         </p>
-
-        <div className="mt-12 grid gap-5 lg:grid-cols-3 lg:gap-6">
-          {types.map((type, i) => (
-            <div
-              key={i}
-              className={`animate-on-scroll stagger-${i + 1} rounded-3xl p-7 lg:p-8 ${
-                type.highlight
-                  ? "bg-white shadow-md ring-2 ring-primary"
-                  : "border border-border bg-white shadow-sm"
-              }`}
-            >
-              <h3
-                className={`text-base font-bold leading-[1.5] lg:text-lg ${
-                  type.highlight ? "text-primary" : "text-text-primary"
-                }`}
-              >
-                {type.label}
-              </h3>
-              <p className="mt-4 text-sm leading-[1.9] text-text-secondary">
-                {type.body}
-              </p>
-              <div className="mt-5 space-y-2 border-t border-border pt-4">
-                <p className="text-xs leading-[1.7] text-text-muted">
-                  {type.range}
-                </p>
-                <p className="text-xs leading-[1.7] text-text-secondary">
-                  {type.feature}
-                </p>
-              </div>
-            </div>
-          ))}
+        <div className="cmp-table rv" style={{ marginTop: "40px" }}>
+          <table className="ct">
+            <thead>
+              <tr>
+                <th>観点</th>
+                <th>集客プラットフォーム型</th>
+                <th>予約管理ツール型</th>
+                <th className="qb">
+                  Quickry Book
+                  <span className="qbs">RESERVATION MARKETPLACE</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>主な役割</th>
+                <td>新規集客</td>
+                <td>予約の管理・受付</td>
+                <td className="qb">予約枠の再配分＋管理</td>
+              </tr>
+              <tr>
+                <th>月額・掲載費</th>
+                <td>高めになる傾向があります</td>
+                <td>0〜数千円の傾向があります</td>
+                <td className="qb">0円から（Freeプラン）</td>
+              </tr>
+              <tr>
+                <th>通常予約の費用</th>
+                <td>掲載費に含まれる傾向</td>
+                <td>かからない傾向があります</td>
+                <td className="qb">実質ゼロ</td>
+              </tr>
+              <tr>
+                <th>キャンセル対策</th>
+                <td>リマインド程度の傾向</td>
+                <td>リマインド程度の傾向</td>
+                <td className="qb">枠の取引で来店につなげる＋回収代行</td>
+              </tr>
+              <tr>
+                <th>満席日の取りこぼし</th>
+                <td>対応しにくい傾向</td>
+                <td>対応しにくい傾向</td>
+                <td className="qb">必要な人へ枠を届けられる</td>
+              </tr>
+              <tr>
+                <th>予約枠の二次流通</th>
+                <td>一般的にありません</td>
+                <td>一般的にありません</td>
+                <td className="qb">あり（日本初）</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        {/* 差別化3点 */}
-        <div className="animate-on-scroll mx-auto mt-12 max-w-[760px] rounded-3xl bg-primary p-8 text-center lg:p-10">
-          <p className="text-base font-bold text-white lg:text-lg">
-            Quickry Book が大切にしている3つのこと
-          </p>
-          <div className="mt-6 flex flex-col items-center gap-3 lg:flex-row lg:justify-center lg:gap-4">
-            {differentiators.map((d) => (
-              <span
-                key={d}
-                className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm"
-              >
-                {d}
-              </span>
-            ))}
-          </div>
+        <div className="cmp-foot rv">
+          集客サービスや予約ツールをやめる必要はありません。Quickry&nbsp;Bookは、それらと併用しながら「取りこぼしの解消」を担います。
         </div>
+        <p className="note rv">
+          ※比較は一般的な傾向の整理です。各サービスの内容は提供事業者により異なります。
+        </p>
       </div>
     </section>
   );

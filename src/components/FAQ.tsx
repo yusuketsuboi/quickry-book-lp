@@ -1,61 +1,61 @@
 "use client";
 
-import { useState } from "react";
-import SectionHeading from "./SectionHeading";
+import { useEffect, useRef, useState } from "react";
+import SecHead from "@/components/SecHead";
 import { faqs } from "@/data/faqs";
 
+// 案B S11 FAQ（アコーディオン）。モックの .qa / .qa.open + max-height トグルを移植。
+// 開いたとき GA4 dataLayer.push({event:"faq_open", question}) を発火（§6）。
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const answerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const handleToggle = (i: number) => {
-    const isOpen = openIndex === i;
-    setOpenIndex(isOpen ? null : i);
+  // 開閉時に max-height を実測値へ反映（render中にrefを読まない＝react-hooks/refs回避）。
+  // モック挙動（max-height:0 ⇄ scrollHeight でスムーズ開閉）をそのまま再現。
+  useEffect(() => {
+    answerRefs.current.forEach((el, i) => {
+      if (!el) return;
+      el.style.maxHeight = openIndex === i ? `${el.scrollHeight}px` : "0px";
+    });
+  }, [openIndex]);
 
-    // GTM event: FAQ open
-    if (!isOpen) {
-      window.dataLayer?.push({
-        event: "faq_open",
-        question: faqs[i].q,
-      });
+  const toggle = (i: number) => {
+    if (openIndex === i) {
+      setOpenIndex(null);
+    } else {
+      setOpenIndex(i);
+      window.dataLayer?.push({ event: "faq_open", question: faqs[i].q });
     }
   };
 
   return (
-    <section className="bg-bg-white">
-      <div className="mx-auto max-w-[1080px] px-5 py-16 lg:px-0 lg:py-30">
-        <div className="animate-on-scroll">
-          <SectionHeading subLabel="FAQ" title="よくある質問" />
-        </div>
-
-        <div className="mx-auto mt-12 flex max-w-[800px] flex-col gap-3">
+    <section className="sec faq" id="faq">
+      <div className="wrap">
+        <SecHead no="11" sup="FAQ">
+          よくある質問。
+        </SecHead>
+        <div className="faq-list rv" style={{ marginTop: "44px" }}>
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
-              <div
-                key={i}
-                className={`overflow-hidden rounded-xl border transition-all duration-300 ${
-                  isOpen
-                    ? "border-primary shadow-sm"
-                    : "border-border"
-                } bg-white`}
-              >
+              <div key={faq.q} className={`qa${isOpen ? " open" : ""}`}>
                 <button
-                  onClick={() => handleToggle(i)}
-                  className="flex w-full cursor-pointer items-center justify-between px-6 py-5 text-left text-base font-semibold text-text-primary"
+                  type="button"
+                  className="q"
+                  aria-expanded={isOpen}
+                  onClick={() => toggle(i)}
                 >
-                  <span>{faq.q}</span>
-                  <span className="ml-4 shrink-0 text-xl text-primary">
-                    {isOpen ? "−" : "+"}
-                  </span>
+                  <span className="qi">Q{i + 1}</span>
+                  <span className="qt">{faq.q}</span>
+                  <span className="qx" aria-hidden="true" />
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-96" : "max-h-0"
-                  }`}
+                  className="a"
+                  ref={(el) => {
+                    answerRefs.current[i] = el;
+                  }}
                 >
-                  <div className="border-t border-border px-6 pb-5 pt-4 text-sm leading-[1.8] text-text-secondary">
-                    {faq.a}
-                  </div>
+                  <div className="ain">{faq.a}</div>
                 </div>
               </div>
             );

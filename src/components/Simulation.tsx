@@ -1,204 +1,137 @@
 "use client";
 
-import { useState } from "react";
-import { TrendingUp } from "lucide-react";
-import SectionHeading from "./SectionHeading";
+import { useMemo, useState } from "react";
+import SecHead from "@/components/SecHead";
 
-// プラン別の店舗還元率（残額 × 店舗50% = 全体の%）
-const STORE_SHARE = {
-  Free: 0.25, // (1 - 0.5) * 0.5
-  Standard: 0.275, // (1 - 0.45) * 0.5
-  Pro: 0.3, // (1 - 0.4) * 0.5
-};
+// =========================================================
+// ★公開前ゲート1: 店舗取り分率（取引単価比）。
+// 現状 = 確定モック値（坪井CEOがジャッジ済の見た目用）。
+// 注意: プロダクト概要§6の実装値(Free.25 / Std.275 / Pro.30)とは前提が異なる。
+//   （モックは「残額率Free50/Std55/Pro60% × 店舗share≒0.73」で.36/.40/.44を導出）
+// 公開前に QuickryBook/docs/fee-structure.md / apps/web/src/lib/fees/constants.ts と突合し、
+//   入江CTO + 白石CTO + 坪井CEO「店舗40%還元」解釈で最終確定する（LP公開=実証実験6/15 前に必ず通す）。
+// 確定後は【この1オブジェクトだけ】差し替えれば、月間報酬・年間・全表示が追従する。
+// ※注記文「店舗の取り分を取引単価の約40%（Standard）」も連動修正が必要（芝原/佐川CMO）。
+const SHOP_RATE = { free: 0.36, standard: 0.4, pro: 0.44 } as const;
 
-const MONTHLY_FEE = {
-  Free: 0,
-  Standard: 4980,
-  Pro: 14980,
-};
+type Plan = keyof typeof SHOP_RATE;
 
-const presets = [
-  { label: "月5件", trades: 5 },
-  { label: "月10件", trades: 10 },
-  { label: "月20件", trades: 20 },
-  { label: "月50件", trades: 50 },
-];
+// 単価スライダー（不等間隔のためindexで保持）:
+//   200〜1000は100円刻み / 1500〜10000は500円刻み（モック忠実）。
+const PRICES: number[] = (() => {
+  const arr: number[] = [];
+  for (let v = 200; v <= 1000; v += 100) arr.push(v);
+  for (let v = 1500; v <= 10000; v += 500) arr.push(v);
+  return arr;
+})();
 
+const PRICE_MAX_INDEX = PRICES.length - 1; // = 26
+
+function yen(n: number): string {
+  return Math.round(n).toLocaleString("ja-JP");
+}
+
+// 案B S7 Simulation（収益シミュレーター）。モックのバニラJSをReactへ移植。
 export default function Simulation() {
-  const [trades, setTrades] = useState(10);
-  const [avgPrice, setAvgPrice] = useState(5000);
+  const [count, setCount] = useState(30); // 月の取引成立件数（実数 1..150）
+  const [priceIndex, setPriceIndex] = useState(8); // PRICES[8] = 1000円
+  const [plan, setPlan] = useState<Plan>("standard");
 
-  const calc = (plan: keyof typeof STORE_SHARE) => {
-    const tradeRevenue = trades * avgPrice * STORE_SHARE[plan];
-    const net = tradeRevenue - MONTHLY_FEE[plan];
-    return { tradeRevenue, net };
-  };
-
-  const results = {
-    Free: calc("Free"),
-    Standard: calc("Standard"),
-    Pro: calc("Pro"),
-  };
-
-  const formatYen = (n: number) =>
-    `¥${Math.round(n).toLocaleString("ja-JP")}`;
+  const price = PRICES[priceIndex];
+  const week = useMemo(() => Math.round((count * 7) / 30), [count]); // 月→週あたり目安（月30日想定）
+  const monthly = useMemo(
+    () => count * price * SHOP_RATE[plan], // 月の件数 × 単価 × 店舗取り分
+    [count, price, plan]
+  );
+  const yearly = monthly * 12;
 
   return (
-    <section className="bg-bg-white">
-      <div className="mx-auto max-w-[1080px] px-5 py-16 lg:px-0 lg:py-30">
-        <div className="animate-on-scroll">
-          <SectionHeading
-            subLabel="SIMULATION"
-            title="本来ゼロだった売上が、こう変わる"
-          />
-        </div>
-
-        <p className="animate-on-scroll mx-auto mt-4 max-w-[700px] text-center text-sm leading-[1.8] text-text-secondary">
-          キャンセルされた枠が別のお客様に渡った時に、売上の一部が店舗に還元されます。
-          <br className="hidden lg:block" />
-          キャンセルが多い店ほど、本来ゼロだった売上が増えます。
+    <section className="sec sim" id="simulation">
+      <div className="wrap">
+        <SecHead no="07" sup="Simulation">
+          もし、その枠が届いたら。
+          <br />
+          数字で見てみる。
+        </SecHead>
+        <p className="sec-lead rv">
+          これまで空席になっていた予約枠が、必要な人に届いたとき。お店に生まれる報酬を、試算してみましょう。
         </p>
-
-        {/* Input card */}
-        <div className="animate-on-scroll mx-auto mt-10 max-w-[720px] rounded-3xl bg-bg-gray p-6 lg:p-8">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Trades slider */}
-            <div>
-              <div className="mb-2 flex items-baseline justify-between">
-                <label className="text-xs font-semibold tracking-wider text-text-muted">
-                  月間のトレード成立件数
-                </label>
-                <span className="font-[family-name:var(--font-accent)] text-2xl font-bold text-primary">
-                  {trades}
-                  <span className="ml-1 text-xs text-text-muted">件/月</span>
+        <div className="sim-grid rv">
+          <div className="sim-controls">
+            <div className="ctrl">
+              <div className="clab">
+                <span className="ct">月に取引が成立する件数</span>
+                <span className="cv">
+                  {count}
+                  <span className="u">
+                    件（週あたり約{week}件）
+                  </span>
                 </span>
               </div>
               <input
                 type="range"
                 min={1}
-                max={100}
+                max={150}
                 step={1}
-                value={trades}
-                onChange={(e) => setTrades(Number(e.target.value))}
-                className="w-full accent-primary"
+                value={count}
+                onChange={(e) => setCount(parseInt(e.target.value, 10))}
+                aria-label="月の取引成立件数"
               />
-              <div className="mt-2 flex gap-2">
-                {presets.map((p) => (
-                  <button
-                    key={p.label}
-                    onClick={() => setTrades(p.trades)}
-                    className={`rounded-full border px-3 py-1 text-xs transition-colors ${
-                      trades === p.trades
-                        ? "border-primary bg-primary text-white"
-                        : "border-border bg-white text-text-secondary hover:border-primary/40"
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
             </div>
-
-            {/* Avg price slider */}
-            <div>
-              <div className="mb-2 flex items-baseline justify-between">
-                <label className="text-xs font-semibold tracking-wider text-text-muted">
-                  平均トレード価格
-                </label>
-                <span className="font-[family-name:var(--font-accent)] text-2xl font-bold text-primary">
-                  {formatYen(avgPrice)}
+            <div className="ctrl">
+              <div className="clab">
+                <span className="ct">取引1件あたりの平均単価</span>
+                <span className="cv">
+                  <span className="u" style={{ marginRight: "1px" }}>
+                    ¥
+                  </span>
+                  {yen(price)}
                 </span>
               </div>
               <input
                 type="range"
-                min={1000}
-                max={20000}
-                step={500}
-                value={avgPrice}
-                onChange={(e) => setAvgPrice(Number(e.target.value))}
-                className="w-full accent-primary"
+                min={0}
+                max={PRICE_MAX_INDEX}
+                step={1}
+                value={priceIndex}
+                onChange={(e) => setPriceIndex(parseInt(e.target.value, 10))}
+                aria-label="取引1件あたりの平均単価"
               />
-              <div className="mt-2 flex gap-2">
-                {[3000, 5000, 8000, 15000].map((p) => (
+            </div>
+            <div className="ctrl">
+              <div className="clab">
+                <span className="ct">プラン（任意）</span>
+              </div>
+              <div className="plan-pick">
+                {(["free", "standard", "pro"] as Plan[]).map((p) => (
                   <button
                     key={p}
-                    onClick={() => setAvgPrice(p)}
-                    className={`rounded-full border px-3 py-1 text-xs transition-colors ${
-                      avgPrice === p
-                        ? "border-primary bg-primary text-white"
-                        : "border-border bg-white text-text-secondary hover:border-primary/40"
-                    }`}
+                    type="button"
+                    className={plan === p ? "on" : undefined}
+                    onClick={() => setPlan(p)}
                   >
-                    {formatYen(p)}
+                    {p === "free" ? "Free" : p === "standard" ? "Standard" : "Pro"}
                   </button>
                 ))}
               </div>
             </div>
           </div>
+          <div className="sim-result">
+            <div className="rlab">想定される月間の取引報酬</div>
+            <div className="rval">
+              <span className="yen">¥</span>
+              {yen(monthly)}
+            </div>
+            <div className="rsub">
+              年間では <b>¥{yen(yearly)}</b> の収益機会
+            </div>
+          </div>
         </div>
-
-        {/* Results */}
-        <div className="animate-on-scroll mt-8 grid gap-4 lg:grid-cols-3 lg:gap-6">
-          {(["Free", "Standard", "Pro"] as const).map((plan) => {
-            const isBest =
-              results[plan].net ===
-              Math.max(
-                results.Free.net,
-                results.Standard.net,
-                results.Pro.net
-              );
-            return (
-              <div
-                key={plan}
-                className={`relative rounded-3xl bg-white p-6 shadow-sm lg:p-8 ${
-                  isBest ? "ring-2 ring-accent" : "border border-border"
-                }`}
-              >
-                {isBest && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-[11px] font-bold text-white shadow-md">
-                    BEST VALUE
-                  </div>
-                )}
-                <p className="font-[family-name:var(--font-accent)] text-xl font-bold text-text-primary">
-                  {plan}
-                </p>
-                <p className="mt-1 text-xs text-text-muted">
-                  {MONTHLY_FEE[plan] === 0
-                    ? "月額0円"
-                    : `月額 ${formatYen(MONTHLY_FEE[plan])}`}
-                </p>
-
-                <div className="mt-5 border-t border-border pt-5">
-                  <p className="text-xs text-text-muted">店舗への還元額（月）</p>
-                  <p className="mt-1 flex items-baseline gap-1">
-                    <span className="font-[family-name:var(--font-accent)] text-4xl font-extrabold text-primary">
-                      {formatYen(results[plan].tradeRevenue)}
-                    </span>
-                  </p>
-                </div>
-
-                <div className="mt-4 flex items-center gap-2 rounded-xl bg-amber-50 px-3 py-2">
-                  <TrendingUp
-                    size={16}
-                    strokeWidth={2}
-                    className="shrink-0 text-amber-600"
-                  />
-                  <div className="text-left">
-                    <p className="text-[10px] text-text-muted">月額差し引き後</p>
-                    <p className="text-sm font-bold text-amber-700">
-                      {formatYen(results[plan].net)}の追加収益
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <p className="animate-on-scroll mt-6 text-center text-xs text-text-muted">
-          ※ これに加えて、来店されたお客様の施術・サービス売上は全額店舗のものです。
-          <br className="hidden lg:block" />
-          ※ 通常の予約管理は完全無料。Freeプランなら月額0円でご利用いただけます。
+        <p className="note sim-note rv">
+          ※店舗の取り分を取引単価の約40%（Standardプラン）として試算しています。プランやお店の設定により変わります。実際の金額は取引価格・成立件数・店舗の設定により異なります（個人差・店舗差があります）。最終的な料率はサービスの規定により確定します。
+        </p>
+        <p className="note sim-note rv">
+          ※施術・サービス自体の売上（全額お店のもの）は含みません。通常予約の予約手数料は0円です。
         </p>
       </div>
     </section>

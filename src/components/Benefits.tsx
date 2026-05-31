@@ -1,57 +1,76 @@
-/**
- * S9 不安への答え（2x2グリッド）
- * 原稿 v4.2 LP版構成に準拠。料率%は出さない。
- * 左上に「ホットペッパーをやめなくていい？」を格上げ配置。
- */
-const concerns = [
-  {
-    q: "Q. ホットペッパーをやめなくていい？",
-    a: "やめる必要はありません。集客はこれまで通り。Quickry Bookは“空いてしまった枠”だけを新しい売上に変える役割です。今お使いの予約・集客の仕組みはそのままに、気になる枠だけ、並行して任せられます。",
-  },
-  {
-    q: "Q. そもそも店舗は手数料を払うのか？",
-    a: "通常の予約管理は手数料0円。トレードやキャンセルでお店が支払うものはありません。空いた枠が新しい売上に変わったときだけ、その新しく生まれた売上の一部を成果報酬としていただきます。お店の持ち出しはありません。",
-  },
-  {
-    q: "Q. 転売されないか？",
-    a: "お店が決めるルールの中で、お客様同士が枠を譲り合う仕組みです。出品価格に上限を設けるなど、投機目的を抑止する仕組みを設けています。あくまで主導権はお店にあります。",
-  },
-  {
-    q: "Q. 既存のお客様が流れないか？",
-    a: "お客様がアプリを開いたら、まずお店が表示されます。かかりつけのお店として登録されると、その関係は一定期間保たれる設計です。新しい出会いを増やしながら、今のお客様とのつながりは守られます。",
-  },
-];
+import SecHead from "@/components/SecHead";
 
+// 案B S6 Benefits（不安への答え・Q&A行レイアウト）。料率%は出さない。文言はコピー正本S6。
 export default function Benefits() {
   return (
-    <section className="bg-bg-gray">
-      <div className="mx-auto max-w-[1080px] px-5 py-20 lg:px-0 lg:py-32">
-        <div className="animate-on-scroll text-center">
-          <p className="font-[family-name:var(--font-accent)] text-xs font-semibold uppercase tracking-[2px] text-primary">
-            FREQUENT CONCERNS
-          </p>
-          <h2 className="mt-3 text-2xl font-bold leading-[1.4] text-text-primary lg:text-[34px]">
-            店舗オーナーの皆様からよくいただく
-            <br className="lg:hidden" />
-            不安に、お答えします
-          </h2>
-        </div>
-
-        <div className="mt-14 grid gap-5 lg:grid-cols-2 lg:gap-6">
-          {concerns.map((c, i) => (
-            <div
-              key={i}
-              className={`animate-on-scroll stagger-${i + 1} rounded-3xl bg-white p-7 shadow-sm lg:p-8`}
-            >
-              <p className="text-base font-bold leading-[1.6] text-text-primary lg:text-lg">
-                {c.q}
-              </p>
-              <p className="mt-4 text-sm leading-[2] text-text-secondary">
-                {c.a}
+    <section className="sec ben" id="benefits">
+      <div className="wrap">
+        <SecHead no="06" sup="Before You Start">
+          始める前の不安に、
+          <br />
+          先にお答えします。
+        </SecHead>
+        <div className="ben-list rv" style={{ marginTop: "44px" }}>
+          <div className="ben-row">
+            <div className="bnum">01</div>
+            <div className="bq">
+              <h3>
+                お金がかかるのでは<span className="qm">？</span>
+              </h3>
+            </div>
+            <div className="ba">
+              <p>
+                Freeプランなら、初期費用も月額も0円。通常の予約管理だけなら、ほぼ費用はかかりません。費用がかかるのは、
+                <b>本来ゼロだったはずの売上が、新しく生まれたとき</b>だけです。
               </p>
             </div>
-          ))}
+          </div>
+          <div className="ben-row">
+            <div className="bnum">02</div>
+            <div className="bq">
+              <h3>
+                今の集客や予約システムを、やめないといけない
+                <span className="qm">？</span>
+              </h3>
+            </div>
+            <div className="ba">
+              <p>
+                いいえ。Quickry&nbsp;Bookは独立した予約システムです。今お使いの集客サービスも予約システムも、そのままで構いません。まずは新しい予約枠から、少しずつ試せます。
+              </p>
+            </div>
+          </div>
+          <div className="ben-row">
+            <div className="bnum">03</div>
+            <div className="bq">
+              <h3>
+                お店の持ち出しが発生しない<span className="qm">？</span>
+              </h3>
+            </div>
+            <div className="ba">
+              <p>
+                発生しません。料金は「本来なかった売上」が生まれたときに、その一部を成果報酬としていただく仕組み。うまくいかなければ、これまでどおり。
+                <b>損をすることはありません。</b>
+              </p>
+            </div>
+          </div>
+          <div className="ben-row">
+            <div className="bnum">04</div>
+            <div className="bq">
+              <h3>
+                うちのお客様が、他店に流れてしまわない
+                <span className="qm">？</span>
+              </h3>
+            </div>
+            <div className="ba">
+              <p>
+                「かかりつけ」機能があります。お客様がアプリを開くと、まずお店が表示される特別なポジション。簡単には他店に切り替えられない設計で、リピートを後押しします。
+              </p>
+            </div>
+          </div>
         </div>
+        <p className="note rv">
+          ※費用・成果報酬の詳細は、料金セクションおよびお問い合わせ時にご案内します。
+        </p>
       </div>
     </section>
   );
