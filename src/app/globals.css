@@ -69,7 +69,7 @@
    base より強く効き見た目は不変。 */
 @layer base {
   *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
   body{background:var(--paper);color:var(--ink);
     font-family:var(--font-sans-jp),sans-serif;line-height:1.85;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;}
@@ -120,7 +120,7 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .mast-nav a.cta:hover{background:var(--red-deep);}
 
 /* ============ S1 Hero（誌面の見開き） ============ */
-.hero{position:relative;border-bottom:2px solid var(--ink);}
+.hero{position:relative;border-bottom:2px solid var(--ink);overflow-x:clip;}
 .hero-grid{display:grid;grid-template-columns:1fr 372px;}
 .hero-main{padding:50px 44px 46px;border-right:2px solid var(--ink);position:relative;}
 .hero-badge{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-sans-jp),sans-serif;
@@ -128,7 +128,7 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
   border:1.5px solid var(--ink);padding:7px 15px 7px 13px;margin-bottom:30px;background:var(--paper);}
 .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--red);}
 h1{font-family:var(--font-serif),serif;font-weight:700;
-   font-size:clamp(44px,7vw,104px);line-height:1.06;letter-spacing:.01em;margin-bottom:4px;}
+   font-size:clamp(34px,7vw,104px);line-height:1.06;letter-spacing:.01em;margin-bottom:4px;}
 h1 .l2{display:block;}
 h1 mark{background:none;color:var(--red);position:relative;white-space:nowrap;}
 h1 mark::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.05em;height:.16em;background:var(--red);opacity:.2;border-radius:2px;}
