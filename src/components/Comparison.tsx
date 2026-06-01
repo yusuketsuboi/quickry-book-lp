@@ -61,7 +61,7 @@ export default function Comparison() {
                 <th>予約枠の二次流通</th>
                 <td>一般的にありません</td>
                 <td>一般的にありません</td>
-                <td className="qb">あり（日本初）</td>
+                <td className="qb">あり</td>
               </tr>
             </tbody>
           </table>

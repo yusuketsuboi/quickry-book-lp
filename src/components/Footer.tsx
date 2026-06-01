@@ -16,7 +16,7 @@ export default function Footer() {
             QUICKRY <i>BOOK</i>
           </div>
           <p>
-            予約枠を、本当に必要な人へ。満席の日の取りこぼしを来店につなげる、日本初の予約枠マーケットプレイス。
+            予約枠を、本当に必要な人へ。満席の日の取りこぼしを来店につなげる、予約枠のマーケットプレイス。
           </p>
         </div>
         <div className="foot-col">
@@ -73,13 +73,20 @@ export default function Footer() {
           <dl className="lrow">
             <dt>所在地</dt>
             <dd>
-              神奈川県横浜市西区みなとみらい三丁目７番１号
-              オーシャンゲートみなとみらい８階 神奈川県ＳＨＩＮみなとみらい
+              〒220-0012 神奈川県横浜市西区みなとみらい三丁目7番1号
+              オーシャンゲートみなとみらい8階 神奈川県SHINみなとみらい
+            </dd>
+          </dl>
+          <dl className="lrow">
+            <dt>電話番号</dt>
+            <dd>
+              050-6862-8551（受付: 平日10:00-18:00）
+              ※お問い合わせは原則メールにて承っております。お電話の場合、留守番電話対応となり折り返しご連絡する場合があります
             </dd>
           </dl>
           <dl className="lrow">
             <dt>お問い合わせ</dt>
-            <dd>本ページの問い合わせフォームより受付</dd>
+            <dd>本ページの問い合わせフォームより受付（contact@quickry.jp）</dd>
           </dl>
           <dl className="lrow">
             <dt>販売価格</dt>
@@ -88,6 +95,12 @@ export default function Footer() {
           <dl className="lrow">
             <dt>お支払方法</dt>
             <dd>クレジットカード（Stripe）</dd>
+          </dl>
+          <dl className="lrow">
+            <dt>お支払時期</dt>
+            <dd>
+              トレード購入・事前決済予約は購入手続き時に決済。通常予約（来店払い）は来店時にお支払い
+            </dd>
           </dl>
           <dl className="lrow">
             <dt>提供時期</dt>

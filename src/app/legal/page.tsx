@@ -27,7 +27,7 @@ export default function LegalPage() {
           特定商取引法に基づく表記
         </h1>
         <p className="text-sm text-text-muted mb-10">
-          最終更新日: 2026年4月12日
+          最終更新日: 2026年6月1日
         </p>
 
         <div className="space-y-10 text-[15px] leading-relaxed text-text-secondary">
@@ -87,7 +87,7 @@ export default function LegalPage() {
                       サービスURL
                     </td>
                     <td className="py-3">
-                      https://book.quickry.jp
+                      https://lp-book.quickry.jp
                     </td>
                   </tr>
                 </tbody>
@@ -124,7 +124,7 @@ export default function LegalPage() {
                       サービス利用手数料
                     </td>
                     <td className="py-2">
-                      トレード価格の40%（消費税込み）
+                      当社所定の料率（消費税込み）。サービス利用手数料は、購入価格の中から当社・加盟店・出品者に分配されるものであり、購入者が購入価格に上乗せして負担するものではありません。
                     </td>
                   </tr>
                   <tr className="border-b border-border">
@@ -139,9 +139,7 @@ export default function LegalPage() {
               </table>
             </div>
             <p className="text-sm text-text-muted mb-4">
-              例: トレード価格2,000円の予約枠を購入する場合 -
-              ユーザーの支払い総額: 2,000円 / うち手数料（40%）:
-              800円
+              例: トレード価格2,000円の予約枠を購入する場合、ユーザーの支払総額は2,000円です。サービス利用手数料は、この支払総額の中から当社・加盟店・出品者に分配されるものであり、購入者が2,000円に上乗せして負担する金額はありません。
             </p>
             <p className="text-sm text-text-muted">
               ※通常の予約（トレードを介さない直接予約）には、手数料は発生しません。
@@ -191,6 +189,61 @@ export default function LegalPage() {
             <p className="text-sm text-text-muted">
               ※決済処理はStripe,
               Inc.が提供する決済基盤を通じて行われます。当社がクレジットカード情報を直接取得・保管することはありません。
+            </p>
+          </section>
+
+          {/* 代金の支払時期（特商法11条） */}
+          <section>
+            <h2 className="text-lg font-bold text-text-primary mb-3">
+              代金の支払時期
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-sm">
+                <tbody>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-semibold text-text-primary whitespace-nowrap w-52">
+                      トレードによる予約枠の購入
+                    </td>
+                    <td className="py-2">
+                      購入手続き時に決済します（与信確保のうえ、トレード成立時に決済が確定する方式を含みます）
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-semibold text-text-primary whitespace-nowrap">
+                      事前決済を選択した予約・割引予約
+                    </td>
+                    <td className="py-2">
+                      予約手続き時に事前決済します
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-semibold text-text-primary whitespace-nowrap">
+                      通常予約（来店払い）
+                    </td>
+                    <td className="py-2">
+                      予約時の事前決済はなく、加盟店にて来店時にお支払いいただきます
+                    </td>
+                  </tr>
+                  <tr className="border-b border-border">
+                    <td className="py-2 pr-4 font-semibold text-text-primary whitespace-nowrap">
+                      加盟店の月額プラン料金
+                    </td>
+                    <td className="py-2">
+                      Standard / Pro を選択した加盟店は、当社所定の方法により毎月課金されます
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* 商品代金以外の必要料金（特商法11条・通信料） */}
+          <section>
+            <h2 className="text-lg font-bold text-text-primary mb-3">
+              商品代金以外の必要料金
+            </h2>
+            <p>
+              本サービスの利用および各種ページの閲覧・通信に必要な通信料金・接続料金は、ユーザーのご負担となります。上記以外に、ユーザーが負担する手数料・送料等はありません。
             </p>
           </section>
 
@@ -287,12 +340,19 @@ export default function LegalPage() {
                       キャンセル期限
                     </td>
                     <td className="py-2">
-                      各加盟店が設定するキャンセルポリシーに従います（加盟店がキャンセル期限を設定していない場合は、予約日の前日23:59まで）
+                      各加盟店が設定するキャンセルポリシーに従います（加盟店がキャンセル期限を設定していない場合は、予約時刻の24時間前まで）
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <h3 className="text-base font-bold text-text-primary mt-4 mb-2">
+              ノーショー・当日キャンセル時のキャンセル料
+            </h3>
+            <p>
+              来店払いの通常予約について、無料キャンセル期限（予約時刻の24時間前）を過ぎたキャンセル等の場合、各加盟店が平均的な損害の範囲内で定める額（上限＝当該予約のメニュー価格）のキャンセル料が発生することがあります。当社は加盟店に代わる回収代行のみを行い、キャンセル料は加盟店に帰属します（消費者契約法9条1号に基づき、平均的損害を超える部分は請求しません）。
+            </p>
           </section>
 
           {/* クーリングオフ */}
